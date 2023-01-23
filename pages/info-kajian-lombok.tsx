@@ -157,7 +157,14 @@ export default function InfoKajianLombok() {
     let { data: studyLocations, error, isLoading } = useSWR('/api/study-locations', fetcher);
 
     if (error) return <div>Failed to load data</div>
-    if (isLoading) return <div>loading...</div>
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center w-screen h-screen bg-gradient-to-tr from-slate-500 to-slate-500 via-slate-50">
+                <div className="w-[30px] h-[30px] sm:w-[50px] sm:h-[50px] md:w-[100px] md:h-[100px]
+                 animate-spin rounded-full border-r-2 border-slate-700"></div>
+            </div>
+        )
+    }
     if (studyLocations) {
         studyLocations = JSON.parse(studyLocations)
     }
