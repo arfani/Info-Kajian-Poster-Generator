@@ -6,8 +6,6 @@ import logoLombokBertauhid from '/public/images/logo-lombok-bertauhid.jpg'
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function InfoKajianLombok() {
-    const [studyLocations, setStudyLocations] = useState()
-
     const studies = [
         [
             {
@@ -156,20 +154,13 @@ export default function InfoKajianLombok() {
         ],
     ]
 
-    const { data, error, isLoading } = useSWR('/api/study-locations', fetcher);
+    let { data: studyLocations, error, isLoading } = useSWR('/api/study-locations', fetcher);
 
-    useEffect(() => {
-        if (data) {
-            const dataJson = JSON.parse(data)
-            setStudyLocations(dataJson)
-            console.log(dataJson);
-
-        }
-
-    }, [data])
     if (error) return <div>Failed to load data</div>
     if (isLoading) return <div>loading...</div>
-
+    if (studyLocations) {
+        studyLocations = JSON.parse(studyLocations)
+    }
     const cards = studies.map((kajian, key) => {
 
         const days = ["Ahad", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
@@ -224,8 +215,8 @@ export default function InfoKajianLombok() {
                             className="w-20 rounded-full m-3 sm:mx-6 md:mx-20 h-fit" />
                         <div className="text-center flex-1">
                             <h1 className="text-xl font-semibold">Info Kajian Lombok</h1>
-                            <p>Lokasi : {studyLocations ? studyLocations[0].name : ""}</p>
-                            <p className="font-thin">{studyLocations ? studyLocations[0].address : ""}</p>
+                            <p>Lokasi : {studyLocations[0].name}</p>
+                            <p className="font-thin">{studyLocations[0].address}</p>
                             <h2 className="bg-slate-200 w-fit mx-auto pl-2 py-1 pr-3 border-l-2 border-slate-400">Kajian Rutin</h2>
                         </div>
                     </div>
