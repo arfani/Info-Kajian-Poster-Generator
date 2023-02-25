@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Masjid Aisyah Lawata",
+        "address": "Jln. Soromandi no.01 Lawata - Mataram - Lombok - NTB.",
+        "detail_address": "-"
+    },
+    {
+        "id": 2,
+        "name": "Masjid Islamic Center Al Muttaqin Cakranegara Barat",
+        "address": "Jln. Kebudayaan",
+        "detail_address": "-"
+    },
+    {
+        "id": 3,
+        "name": "Mushalla Raudatussamarat",
+        "address": "-",
+        "detail_address": "Majeluk sebelah barat Makam Pahlawan"
+    }
+]

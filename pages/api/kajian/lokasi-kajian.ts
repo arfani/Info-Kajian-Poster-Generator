@@ -9,7 +9,9 @@ export default async function handler(
     //Find the absolute path of the json directory
     const jsonDirectory = path.join(process.cwd(), 'json');
     //Read the json data file studies.json
-    const fileContents = await fs.readFile(jsonDirectory + '/studies.json', 'utf8');
+    const fileContents = await fs.readFile(jsonDirectory + '/lecturing/locations.json', 'utf8');
+
+    const lecturingLocations = JSON.parse(fileContents);
     //Return the content of the data file in json format
-    res.status(200).json(fileContents);
+    res.status(200).json(lecturingLocations);
 }

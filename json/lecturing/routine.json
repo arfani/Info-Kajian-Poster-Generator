@@ -1,0 +1,146 @@
+[
+    {
+        "day": 0,
+        "time": "Ba'da Subuh",
+        "lecturer": 10,
+        "book": "-",
+        "theme": "-",
+        "location": 1,
+        "isAvailable": true,
+        "type": "routine"
+    },
+    {
+        "day": 0,
+        "time": "Ba'da Maghrib",
+        "lecturer": 9,
+        "book": "-",
+        "theme": "Metode-metode Nabawi meluruskan kesalahan",
+        "location": 1,
+        "isAvailable": true,
+        "type": "routine"
+    },
+    {
+        "day": 1,
+        "time": "Ba'da Maghrib",
+        "lecturer": 5,
+        "book": "Arbain An - Nawawi",
+        "theme": "Inspirasi Ilmiah Hadits al-Arba'in an-Nawawiah",
+        "location": 1,
+        "isAvailable": true,
+        "type": "routine"
+    },
+    {
+        "day": 2,
+        "time": "Ba'da Subuh",
+        "lecturer": 2,
+        "book": "الارشاد إلى صحيح الاعتقاد",
+        "theme": "-",
+        "location": 1,
+        "isAvailable": true,
+        "type": "routine"
+    },
+    {
+        "day": 2,
+        "time": "Ba'da Ashar",
+        "lecturer": 7,
+        "book": "الأصول الثلاثة",
+        "theme": "TIGA LANDASAN UTAMA",
+        "location": 1,
+        "isAvailable": true,
+        "week": 1,
+        "status": "PENGAJIAN KHUSUS MUSLIMAH",
+        "type": "routine"
+    },
+    {
+        "day": 2,
+        "time": "Ba'da Ashar",
+        "lecturer": 6,
+        "book": "-",
+        "theme": "-",
+        "location": 1,
+        "isAvailable": true,
+        "week": 3,
+        "status": "PENGAJIAN KHUSUS MUSLIMAH",
+        "type": "routine"
+    },
+    {
+        "day": 2,
+        "time": "Ba'da Maghrib",
+        "lecturer": 4,
+        "book": "المفيد في مهمات التوحي",
+        "theme": "Aqidah Tauhid",
+        "location": 1,
+        "isAvailable": true,
+        "type": "routine"
+    },
+    {
+        "day": 3,
+        "time": "Ba'da Subuh",
+        "lecturer": 4,
+        "book": "-",
+        "theme": "-",
+        "location": 1,
+        "isAvailable": true,
+        "type": "routine"
+    },
+    {
+        "day": 3,
+        "time": "Ba'da Maghrib",
+        "lecturer": 11,
+        "book": "-",
+        "theme": "-",
+        "location": 1,
+        "isAvailable": true,
+        "type": "routine"
+    },
+    {
+        "day": 4,
+        "time": "Ba'da Subuh",
+        "lecturer": 6,
+        "book": "-",
+        "theme": "-",
+        "location": 1,
+        "isAvailable": true,
+        "type": "routine"
+    },
+    {
+        "day": 4,
+        "time": "Ba'da Maghrib",
+        "lecturer": 8,
+        "book": "-",
+        "theme": "-",
+        "location": 1,
+        "isAvailable": true,
+        "type": "routine"
+    },
+    {
+        "day": 5,
+        "time": "Ba'da Subuh",
+        "lecturer": 1,
+        "book": "-",
+        "theme": "-",
+        "location": 1,
+        "isAvailable": true,
+        "type": "routine"
+    },
+    {
+        "day": 5,
+        "time": "Ba'da Maghrib",
+        "lecturer": 1,
+        "book": "-",
+        "theme": "-",
+        "location": 1,
+        "isAvailable": true,
+        "type": "routine"
+    },
+    {
+        "day": 6,
+        "time": "Ba'da Maghrib",
+        "lecturer": 3,
+        "book": "Tafsir Al-Muyassar",
+        "theme": "Tafsir Al-Qur'an",
+        "location": 1,
+        "isAvailable": true,
+        "type": "routine"
+    }
+]
