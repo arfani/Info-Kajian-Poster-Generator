@@ -14,7 +14,7 @@ export default function CreatePoster() {
     const Inputs = [
         { id: "speaker", type: "text", label: "Speaker / Pemateri", value: speaker, onChange: (e: any) => setSpeaker(e.target.value) },
         { id: "theme", type: "text", label: "Judul / Tema", value: theme, onChange: (e: any) => setTheme(e.target.value) },
-        { id: "date", type: "text", label: "Tanggal", value: date, onChange: (e: any) => setDate((e.target.value).getDate()) },
+        { id: "date", type: "text", label: "Tanggal", value: date, onChange: (e: any) => setDate(e.target.value) },
         { id: "time", type: "text", label: "Waktu", value: time, onChange: (e: any) => setTime(e.target.value) },
         { id: "location", type: "text", label: "Lokasi", value: location, onChange: (e: any) => setLocation(e.target.value) },
         { id: "pic", type: "text", label: "PIC", value: PIC, onChange: (e: any) => setPIC(e.target.value) }
