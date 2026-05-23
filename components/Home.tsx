@@ -11,173 +11,152 @@ import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import logoLombokBertauhid from '/public/images/logo-lombok-bertauhid.jpg';
 import Footer from "./Footer";
+import logoLombokBertauhid from '/public/images/logo-lombok-bertauhid.jpg';
+
+interface Lecturing {
+    "day": {
+        id: number,
+        name: string
+    },
+    "time": string,
+    "lecturer": {
+        id: number,
+        name: string,
+        kunyah: string,
+        wa: string,
+        address: string
+    },
+    "book": string,
+    "theme": string,
+    "location": {
+        id: number,
+        name: string,
+        address: string,
+        detail_address: string
+    },
+    "isAvailable": boolean,
+    "week": number,
+    "status": string
+}
 
 export default function Home() {
     const today = new Date()
 
-    const [lecturings, setLecturings] = useState([])
+    const [lecturings, setLecturings] = useState<Lecturing[]>([])
     const [filterDay, setFilterDay] = useState("")
 
     useEffect(() => {
         getLecturings()
-    }, [filterDay])
+    }, [])
 
     const getLecturings = () => {
         axios('/api/kajian/rutin')
             .then(({ data }) => {
                 setLecturings(data)
             })
-            .catch(({ message }) => {
-                toast.error(message)
+            .catch((error) => {
+                toast.error(error.message)
             })
     }
 
-    interface Lecturing {
-        "day": {
-            id: number,
-            name: string
-        },
-        "time": string,
-        "lecturer": {
-            id: number,
-            name: string,
-            kunyah: string,
-            wa: string,
-            address: string
-        },
-        "book": string,
-        "theme": string,
-        "location": {
-            id: number,
-            name: string,
-            address: string,
-            detail_address: string
-        },
-        "isAvailable": boolean,
-        "week": number,
-        "status": string
-    }
-
     const cards = () => lecturings
-        .map((lecturing: Lecturing, key) => {
-            if (lecturing.day.id == (filterDay || today.getDay()))
-                return (
-                    <div
-                        className="group m-3 flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:w-[320px]"
-                        key={key}
-                    >
-                        {/* Time & Badge */}
-                        <div className="flex items-center justify-between bg-primary px-5 py-3 text-white">
-                            <div className="flex items-center gap-2">
-                                <ClockIcon className="h-5 w-5 text-secondary" />
-                                <span className="font-bold tracking-wider">{lecturing.time}</span>
-                            </div>
-                            {lecturing.day.id === today.getDay() && (
-                                <span className="inline-flex animate-pulse items-center rounded-full bg-red-500/20 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-red-200 backdrop-blur-sm border border-red-500/30">
-                                    HARI INI
+        .filter((lecturing) => {
+            const targetDay = filterDay === "" ? today.getDay() : Number(filterDay);
+            return lecturing.day.id === targetDay;
+        })
+        .map((lecturing, key) => {
+            return (
+                <div
+                    className="group m-3 flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:w-[320px]"
+                    key={key}
+                >
+                    {/* Time & Badge */}
+                    <div className="flex items-center justify-between bg-primary px-5 py-3 text-white">
+                        <div className="flex items-center gap-2">
+                            <ClockIcon className="h-5 w-5 text-secondary" />
+                            <span className="font-bold tracking-wider">{lecturing.time}</span>
+                        </div>
+                        {lecturing.day.id === today.getDay() && (
+                            <span className="inline-flex animate-pulse items-center rounded-full bg-red-500/20 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-red-200 backdrop-blur-sm border border-red-500/30">
+                                HARI INI
+                            </span>
+                        )}
+                    </div>
+
+                    <div className="flex flex-1 flex-col p-6">
+                        {/* Badges Container */}
+                        <div className="mb-5 flex flex-wrap gap-2">
+                            {lecturing.status && (
+                                <span className="rounded-md bg-pink-50 px-2.5 py-1 text-[10px] font-bold uppercase text-pink-600 ring-1 ring-inset ring-pink-600/20">
+                                    {lecturing.status}
+                                </span>
+                            )}
+                            {lecturing.week && (
+                                <span className="rounded-md bg-blue-50 px-2.5 py-1 text-[10px] font-bold uppercase text-blue-600 ring-1 ring-inset ring-blue-600/20">
+                                    Pekan {lecturing.week}
+                                </span>
+                            )}
+                            {!lecturing.isAvailable && (
+                                <span className="rounded-md bg-red-50 px-2.5 py-1 text-[10px] font-bold uppercase text-red-600 ring-1 ring-inset ring-red-600/20">
+                                    Libur
                                 </span>
                             )}
                         </div>
 
-                        <div className="flex flex-1 flex-col p-6">
-                            {/* Badges Container */}
-                            <div className="mb-5 flex flex-wrap gap-2">
-                                {lecturing.status && (
-                                    <span className="rounded-md bg-pink-50 px-2.5 py-1 text-[10px] font-bold uppercase text-pink-600 ring-1 ring-inset ring-pink-600/20">
-                                        {lecturing.status}
-                                    </span>
-                                )}
-                                {lecturing.week && (
-                                    <span className="rounded-md bg-blue-50 px-2.5 py-1 text-[10px] font-bold uppercase text-blue-600 ring-1 ring-inset ring-blue-600/20">
-                                        Pekan {lecturing.week}
-                                    </span>
-                                )}
-                                {!lecturing.isAvailable && (
-                                    <span className="rounded-md bg-red-50 px-2.5 py-1 text-[10px] font-bold uppercase text-red-600 ring-1 ring-inset ring-red-600/20">
-                                        Libur
-                                    </span>
-                                )}
-                            </div>
-
-                            {/* Info Details */}
-                            <div className="space-y-5">
-                                <div className="flex items-start gap-4">
-                                    <div className="rounded-lg bg-slate-50 p-2 text-secondary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                                        <UserIcon className="h-5 w-5" />
-                                    </div>
-                                    <div>
-                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Ustadz</p>
-                                        <p className="text-lg font-bold text-slate-800 leading-tight">{lecturing.lecturer.name}</p>
-                                    </div>
+                        {/* Info Details */}
+                        <div className="space-y-5">
+                            <div className="flex items-start gap-4">
+                                <div className="rounded-lg bg-slate-50 p-2 text-secondary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                                    <UserIcon className="h-5 w-5" />
                                 </div>
-
-                                <div className="flex items-start gap-4">
-                                    <div className="rounded-lg bg-slate-50 p-2 text-secondary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                                        <BookOpenIcon className="h-5 w-5" />
-                                    </div>
-                                    <div>
-                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Materi & Kitab</p>
-                                        <p className="font-bold text-slate-700 leading-snug">{lecturing.theme}</p>
-                                        {lecturing.book && <p className="mt-1 text-sm italic text-slate-500">{lecturing.book}</p>}
-                                    </div>
-                                </div>
-
-                                <div className="flex items-start gap-4">
-                                    <div className="rounded-lg bg-slate-50 p-2 text-secondary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                                        <MapPinIcon className="h-5 w-5" />
-                                    </div>
-                                    <div>
-                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Lokasi</p>
-                                        <p className="font-bold text-slate-700">{lecturing.location.name}</p>
-                                        <p className="mt-1 text-xs leading-relaxed text-slate-500">{lecturing.location.address}</p>
-                                    </div>
+                                <div>
+                                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Ustadz</p>
+                                    <p className="text-lg font-bold text-slate-800 leading-tight">{lecturing.lecturer.name}</p>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="mt-auto border-t border-slate-100 bg-slate-50/50 px-6 py-3">
-                            <div className="flex items-center justify-center gap-2 text-xs font-medium text-slate-400">
-                                <CalendarIcon className="h-4 w-4" />
-                                <span>Kajian Rutin - {lecturing.day.name}</span>
+                            <div className="flex items-start gap-4">
+                                <div className="rounded-lg bg-slate-50 p-2 text-secondary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                                    <BookOpenIcon className="h-5 w-5" />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Materi & Kitab</p>
+                                    <p className="font-bold text-slate-700 leading-snug">{lecturing.theme}</p>
+                                    {lecturing.book && <p className="mt-1 text-sm italic text-slate-500">{lecturing.book}</p>}
+                                </div>
+                            </div>
+
+                            <div className="flex items-start gap-4">
+                                <div className="rounded-lg bg-slate-50 p-2 text-secondary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                                    <MapPinIcon className="h-5 w-5" />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Lokasi</p>
+                                    <p className="font-bold text-slate-700">{lecturing.location.name}</p>
+                                    <p className="mt-1 text-xs leading-relaxed text-slate-500">{lecturing.location.address}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                )
+
+                    <div className="mt-auto border-t border-slate-100 bg-slate-50/50 px-6 py-3">
+                        <div className="flex items-center justify-center gap-2 text-xs font-medium text-slate-400">
+                            <CalendarIcon className="h-4 w-4" />
+                            <span>Kajian Rutin - {lecturing.day.name}</span>
+                        </div>
+                    </div>
+                </div>
+            )
         })
 
     const dateFormatId = (date: Date) => {
-        var tahun = date.getFullYear();
-        var bulan: string | number = date.getMonth();
-        var tanggal = date.getDate();
-        var hari: string | number = date.getDay();
-
-        switch (hari) {
-            case 0: hari = "Minggu"; break;
-            case 1: hari = "Senin"; break;
-            case 2: hari = "Selasa"; break;
-            case 3: hari = "Rabu"; break;
-            case 4: hari = "Kamis"; break;
-            case 5: hari = "Jum'at"; break;
-            case 6: hari = "Sabtu"; break;
-        }
-        switch (bulan) {
-            case 0: bulan = "Januari"; break;
-            case 1: bulan = "Februari"; break;
-            case 2: bulan = "Maret"; break;
-            case 3: bulan = "April"; break;
-            case 4: bulan = "Mei"; break;
-            case 5: bulan = "Juni"; break;
-            case 6: bulan = "Juli"; break;
-            case 7: bulan = "Agustus"; break;
-            case 8: bulan = "September"; break;
-            case 9: bulan = "Oktober"; break;
-            case 10: bulan = "November"; break;
-            case 11: bulan = "Desember"; break;
-        }
-        var dateIdFormat = hari + ", " + tanggal + " " + bulan + " " + tahun
-        return dateIdFormat
+        return new Intl.DateTimeFormat('id-ID', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+        }).format(date);
     }
 
     return (
